@@ -40,6 +40,14 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
+function rowClick(){
+
+
+        console.log('The link was clicked.');
+      
+
+}
+
 export default function Tabela() {
   return (
     <TableContainer component={Paper}>
@@ -55,7 +63,7 @@ export default function Tabela() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <StyledTableRow key={row.name} onClick={() => console.log("row.original")}>
+            <StyledTableRow key={row.name} onClick={rowClick}>
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
