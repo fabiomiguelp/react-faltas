@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -55,7 +55,7 @@ export default function Tabela() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+            <StyledTableRow key={row.name} onClick={() => console.log("row.original")}>
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
