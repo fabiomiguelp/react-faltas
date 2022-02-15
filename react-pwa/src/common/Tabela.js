@@ -7,6 +7,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useState, useEffect } from "react";
+import axiosInstance from '../axiosInstance';
+import { Link } from 'react-router-dom';
+
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -28,50 +33,74 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-function rowClick(){
 
 
-        console.log('The link was clicked.');
-      
 
-}
+
+
+
+
 
 export default function Tabela() {
+
+  const [aulas, setAulas] = useState ([]);
+  const [open, setOpen] = useState(false);
+
+
+  const handleClickOpen = () => {
+    setOpen(true);
+    console.log(open);
+  };
+
+
+   
+  const handleClose = () => {
+
+    setOpen(false);
+    console.log(false);
+
+
+  };
+
+
+
+  useEffect(() =>{
+    async function getAulas(){
+      const response = await axiosInstance.get('/api/presencas');
+      setAulas([...response.data]);
+      //setisLoading(false);
+      console.log(response.data);
+  
+    }
+    getAulas();
+  
+    },[open]);
   return (
     <TableContainer component={Paper}>
+
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+            <StyledTableCell>Aula</StyledTableCell>
+            <StyledTableCell align="center">Sala</StyledTableCell>
+            <StyledTableCell align="center">Professor</StyledTableCell>
+            <StyledTableCell align="center">Inicio</StyledTableCell>
+            <StyledTableCell align="center">Fim</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name} onClick={rowClick}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell>
+          {aulas.map((row) => (
+        
+            <StyledTableRow key={Math.random}>
+              
+              <StyledTableCell component="th" scope="row">{row.summary}</StyledTableCell>
+              <StyledTableCell align="right">{row.location = row.location.split("-").pop()}</StyledTableCell>
+              <StyledTableCell align="right">{row.professor}</StyledTableCell>
+              <StyledTableCell align="right">{row.start = row.start.split("T").pop()}</StyledTableCell>
+              <StyledTableCell align="right">{row.end = row.end.split("T").pop()}</StyledTableCell>
+          
             </StyledTableRow>
+   
           ))}
         </TableBody>
       </Table>
