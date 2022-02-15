@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import { useState, useEffect } from "react";
 import axiosInstance from '../axiosInstance';
 import { Link } from 'react-router-dom';
+import PopUp from './Popup';
 
 
 
@@ -86,18 +87,20 @@ export default function Tabela() {
             <StyledTableCell align="center">Professor</StyledTableCell>
             <StyledTableCell align="center">Inicio</StyledTableCell>
             <StyledTableCell align="center">Fim</StyledTableCell>
+            <StyledTableCell align="center"></StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {aulas.map((row) => (
         
-            <StyledTableRow key={Math.random}>
+            <StyledTableRow key={Math.random} >
               
               <StyledTableCell component="th" scope="row">{row.summary}</StyledTableCell>
               <StyledTableCell align="right">{row.location = row.location.split("-").pop()}</StyledTableCell>
               <StyledTableCell align="right">{row.professor}</StyledTableCell>
               <StyledTableCell align="right">{row.start = row.start.split("T").pop()}</StyledTableCell>
               <StyledTableCell align="right">{row.end = row.end.split("T").pop()}</StyledTableCell>
+              <PopUp summary={row.summary} location={row.location} professor={row.professor} start={row.start} end={row.end}/>
           
             </StyledTableRow>
    
