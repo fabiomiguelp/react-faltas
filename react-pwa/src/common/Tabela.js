@@ -9,8 +9,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useState, useEffect } from "react";
 import axiosInstance from '../axiosInstance';
-import { Link } from 'react-router-dom';
-import PopUp from './Popup';
 import Swal from 'sweetalert2'
 import { Button } from '@material-ui/core';
 
