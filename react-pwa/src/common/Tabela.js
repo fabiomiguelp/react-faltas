@@ -11,6 +11,8 @@ import { useState, useEffect } from "react";
 import axiosInstance from '../axiosInstance';
 import { Link } from 'react-router-dom';
 import PopUp from './Popup';
+import Swal from 'sweetalert2'
+import { Button } from '@material-ui/core';
 
 
 
@@ -44,26 +46,37 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function Tabela() {
 
+
+  
+
   const [aulas, setAulas] = useState ([]);
-  const [open, setOpen] = useState(false);
+
+  const [prevState, setState] = useState([]);
 
 
-  const handleClickOpen = () => {
-    setOpen(true);
-    console.log(open);
-  };
 
 
-   
-  const handleClose = () => {
-
-    setOpen(false);
-    console.log(false);
-
-
-  };
-
-
+  function confirmButton(id, professor){
+    Swal.fire({
+      title: 'Tem a certeza?',
+      text: 'pretende marcar falta ao prof:'+professor,
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //deleteProduto(id);
+        setState(prevState => [...prevState, 'some data'] );
+        
+      }else{
+        setState(prevState => [...prevState, 'some data'] );
+      }
+    })
+  
+  }
 
   useEffect(() =>{
     async function getAulas(){
@@ -75,7 +88,7 @@ export default function Tabela() {
     }
     getAulas();
   
-    },[open]);
+    },[prevState]);
   return (
     <TableContainer component={Paper}>
 
@@ -93,14 +106,14 @@ export default function Tabela() {
         <TableBody>
           {aulas.map((row) => (
         
-            <StyledTableRow key={Math.random} >
+            <StyledTableRow key={row.id} >
               
               <StyledTableCell component="th" scope="row">{row.summary}</StyledTableCell>
               <StyledTableCell align="right">{row.location = row.location.split("-").pop()}</StyledTableCell>
               <StyledTableCell align="right">{row.professor}</StyledTableCell>
               <StyledTableCell align="right">{row.start = row.start.split("T").pop()}</StyledTableCell>
               <StyledTableCell align="right">{row.end = row.end.split("T").pop()}</StyledTableCell>
-              <PopUp summary={row.summary} location={row.location} professor={row.professor} start={row.start} end={row.end}/>
+              <Button onClick={()=>confirmButton(row.id, row.professor)} variant="sucess" size="lg">Marcar</Button>
           
             </StyledTableRow>
    
