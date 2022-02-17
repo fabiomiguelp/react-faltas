@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Presenca;
+use Illuminate\Support\Facades\DB;
 
 class PresencasController extends Controller
 {
@@ -14,11 +15,11 @@ class PresencasController extends Controller
      */
     public function index()
     {
-        return Presenca::all();
+        return DB::table('presencas')->where('faltou', '0')->get();
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storaga.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -48,7 +49,9 @@ class PresencasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $presenca = Presenca::find($id);
+        $presenca->update($request->all());
+        return $presenca;
     }
 
     /**

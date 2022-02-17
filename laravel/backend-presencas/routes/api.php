@@ -17,6 +17,8 @@ use App\Http\Controllers\PresencasController;
 
 //PUBLIC ROUTES
 Route::get('/presencas', [PresencasController::class,'index']);
+Route::put('/presencas/{id}', [PresencasController::class,'update']);
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
