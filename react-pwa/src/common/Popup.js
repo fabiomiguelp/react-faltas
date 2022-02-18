@@ -8,9 +8,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import React, { useState, useEffect } from 'react';
 import { Switch } from '@material-ui/core';
 import { FormControlLabel } from '@material-ui/core';
+import axiosInstance from '../axiosInstance';
 
 
-export default function PopUp({summary,location,professor, start, end}) {
+export default function PopUp({summary,location,professor, start, end, id}) {
     const [open, setOpen] = React.useState(false);
     const [checked, setChecked] = React.useState(true);
 
@@ -26,10 +27,21 @@ export default function PopUp({summary,location,professor, start, end}) {
     };
 
 
-    const handleMarcar = () => {
-      setOpen(false);
+    const handleMarcar = async () => {
+      handleClose();
+      try {
+          const arrayEntrada = { 
+          faltou: 1
+          };
+          const response = await axiosInstance.put('/api/presencas/'+id, arrayEntrada).then(() => {
+            console.log(arrayEntrada);
+            handleClose();
+          });
+      } catch (err) {
+        console.log(err);
+      }
     };
-
+  
 
 
   
@@ -61,7 +73,7 @@ export default function PopUp({summary,location,professor, start, end}) {
         <FormControlLabel
               sx={{ mt: 1 }}
               control={
-                <Switch checked={checked} />
+                <Switch checked={checked} onClick={ () => setChecked(!checked)} />
               }
               label="Hora Atual"
             />

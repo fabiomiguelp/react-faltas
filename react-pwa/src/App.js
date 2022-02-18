@@ -13,7 +13,7 @@ function App() {
     <Router>
       <Switch>
         
-        <Route exact path='/'>
+        <Route exact path='/piso'>
          <Home/>
         </Route>
 
