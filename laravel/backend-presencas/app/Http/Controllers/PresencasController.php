@@ -13,9 +13,9 @@ class PresencasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($piso)
     {
-        return DB::table('presencas')->where('faltou', '0')->get();
+        return DB::table('presencas')->where('faltou', '0')->where('piso', $piso)->get();
     }
 
     /**

@@ -19,7 +19,8 @@ class Presenca extends Model
         'professor',
         'faltou',
         'horamarcacao',
-        'nprocesso'
+        'nprocesso',
+        'piso'
     ];
 
 }

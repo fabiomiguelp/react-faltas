@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PresencasController;
+use App\Http\Controllers\GoogleSheetsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +17,10 @@ use App\Http\Controllers\PresencasController;
 */
 
 //PUBLIC ROUTES
-Route::get('/presencas', [PresencasController::class,'index']);
+Route::get('/presencas/{piso}', [PresencasController::class,'index']);
 Route::put('/presencas/{id}', [PresencasController::class,'update']);
+Route::get('/marcar', [GoogleSheetsController::class,'saveDataToSheet']);
+Route::get('/getCalendar/{id}', [GoogleSheetsController::class,'getCalendar']);
 
 
 
