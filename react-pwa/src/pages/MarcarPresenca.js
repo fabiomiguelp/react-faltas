@@ -1,11 +1,26 @@
-import React from 'react';
+
+import '../App.css';
+import Tabela from '../common/Tabela';
+
+import Header from '../common/Header';
 
 
-function MarcarPresenca() {
+
+
+
+function MarcarPresenca({pisoCurrent}) {
+
+
+
+
   return (
-    <div className="App">
-        
+    <div>
+            <Header/>     
+            <Tabela piso={pisoCurrent}/>
+            
     </div>
+   
+
   );
 }
 

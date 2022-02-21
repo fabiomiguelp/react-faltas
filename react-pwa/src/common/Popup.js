@@ -31,7 +31,7 @@ export default function PopUp({summary,location,professor, start, end, id}) {
       handleClose();
       try {
           const arrayEntrada = { 
-          faltou: 1
+          presenca: 1
           };
           const response = await axiosInstance.put('/api/presencas/'+id, arrayEntrada).then(() => {
             console.log(arrayEntrada);

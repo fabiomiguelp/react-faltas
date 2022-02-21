@@ -10,8 +10,6 @@ import Paper from '@mui/material/Paper';
 import { useState, useEffect } from "react";
 import axiosInstance from '../axiosInstance';
 import Swal from 'sweetalert2'
-import { Button } from '@material-ui/core';
-import { Link } from '@material-ui/core';
 
 
 
@@ -43,7 +41,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
-export default function Tabela() {
+export default function Tabela({piso}) {
 
 
   
@@ -66,14 +64,10 @@ export default function Tabela() {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Marcar'
     }).then((result) => {
-      if (result.isConfirmed) {
+      if (result.isConfirmed) 
         marcar(id);
 
-        setState(prevState => [...prevState, 'some data'] );
-        
-      }else{
-        setState(prevState => [...prevState, 'some data'] );
-      }
+
     })
   
   }
@@ -81,7 +75,7 @@ export default function Tabela() {
 
     try {
         const arrayEntrada = { 
-        faltou: 1
+        presenca: 1
         };
         const response = await axiosInstance.put('/api/presencas/'+id, arrayEntrada).then(() => {
           console.log(arrayEntrada);
@@ -89,6 +83,7 @@ export default function Tabela() {
             icon: 'success',
             title: 'Presenca Marcada'
           });
+          setState(prevState => [...prevState, 'some data'] );
 
         });
     } catch (err) {
@@ -98,24 +93,27 @@ export default function Tabela() {
       });
 
       console.log(err);
+      setState(prevState => [...prevState, 'some data'] );
     }
   };
 
 
   useEffect(() =>{
     async function getAulas(){
-      const response = await axiosInstance.get('/api/presencas');
+      const response = await axiosInstance.get('/api/presencas/'+piso);
       setAulas([...response.data]);
       //setisLoading(false);
       console.log(response.data);
+      console.log("piso: "+piso);
+
   
     }
     getAulas();
   
     },[prevState]);
   return (
+    
     <TableContainer component={Paper}>
-
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>

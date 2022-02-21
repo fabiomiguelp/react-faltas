@@ -34,6 +34,7 @@
   --font-family-sans-serif: 'Cerebri Sans', sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
     'Liberation Mono', 'Courier New', monospace;
+ 
 }
 *,
 :after,
@@ -68,6 +69,7 @@ body {
   text-align: left;
   background-color: #f9fbfd;
 }
+
 [tabindex='-1']:focus {
   outline: 0 !important;
 }
