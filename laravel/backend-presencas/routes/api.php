@@ -19,7 +19,11 @@ use App\Http\Controllers\GoogleSheetsController;
 //PUBLIC ROUTES
 Route::get('/presencas/{piso}', [PresencasController::class,'index']);
 Route::put('/presencas/{id}', [PresencasController::class,'update']);
-Route::get('/marcar', [GoogleSheetsController::class,'saveDataToSheet']);
+Route::get('/savetosheet', [GoogleSheetsController::class,'saveToSheet']);
+// get presencas marcadas pelo funcionario
+Route::post('/presencasmarcadasfunc', [PresencasController::class,'presencasmarcadasfunc']);
+
+
 Route::get('/getCalendar/{id}', [GoogleSheetsController::class,'getCalendar']);
 
 

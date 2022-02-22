@@ -17,7 +17,7 @@ class Presenca extends Model
         'datainsercao',
         'chaveunica',
         'professor',
-        'faltou',
+        'presenca',
         'horamarcacao',
         'nprocesso',
         'piso'

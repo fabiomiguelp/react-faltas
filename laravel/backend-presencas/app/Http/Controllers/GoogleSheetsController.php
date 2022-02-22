@@ -76,6 +76,7 @@ if (empty($events)) {
        
 
     }
+    
     DB::table('presencas')->insert($items);
 }
 
@@ -108,19 +109,26 @@ return response()->json($response->getValues());
 }
 
 
-public function saveDataToSheet()
+public function saveToSheet()
 {
 
-    $produtos = DB::table('presencas')->where('faltou', '1')->where('piso', 'a3')->get();
+    $from = date('c');
+    $to = date('c', strtotime('+23 hours'));
+
+    $produtos = DB::table('presencas')->whereBetween('start',[$from,$to])->get();
 
 
 
 
-    $client = $this->getClient();
+    $client = new Client();
+    $client->setApplicationName('Google Sheets API PHP Quickstart');
+    $client->setScopes(Sheets::SPREADSHEETS);
+    $client->setAuthConfig(storage_path('credentials.json'));
+    $client->setAccessType('offline');
     $service = new Sheets($client);
 
-    $spreadsheetId = '1QxSrgid2YcWLxu6BRSs8BCVQQ3Mivzotw_r4vq-36PI';
-    $range = 'folhaapp!A:D';
+    $spreadsheetId = '1vE5-Dyrj0Vhs7qwkRiz0oZYQhJi34TeCLcc9ObQ4nZ8';
+    $range = 'tudo!A:H';
 
 
     if($produtos->count() === 0){
@@ -131,8 +139,14 @@ public function saveDataToSheet()
     foreach($produtos as $produto){
         $finalData->push([
             $produto->professor,
+            $produto->updated_at,
             $produto->start,
-            $produto->end
+            $produto->end,
+            $produto->summary,
+            $produto->location,
+            $produto->presenca,
+            $produto->nprocesso,
+
 
 
         ]);

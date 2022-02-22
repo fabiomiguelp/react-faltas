@@ -21,7 +21,7 @@ class CreatePresencasTable extends Migration
             $table->string('end');
             $table->string('chaveunica');
             $table->string('professor');
-            $table->integer('faltou');
+            $table->integer('presenca');
             $table->integer('nprocesso');
             $table->string('piso');
             $table->timestamps();

@@ -15,9 +15,15 @@ class PresencasController extends Controller
      */
     public function index($piso)
     {
-        return DB::table('presencas')->where('faltou', '0')->where('piso', $piso)->get();
+        return DB::table('presencas')->where('presenca', '0')->where('piso', $piso)->get();
     }
 
+
+    public function presencasmarcadasfunc(Request $request)
+    {
+        return DB::table('presencas')->where('presenca', '1')->where('piso', $request->input('piso'))->where('nprocesso',$request->input('nprocesso'))->get();
+    }
+    
     /**
      * Store a newly created resource in storaga.
      *
